@@ -1,0 +1,17 @@
+{% extends 'base.html'%}
+
+{% block content %}
+    <ul>
+        {% for i in x %}
+            {% if i|divisibleby:'3' and i|divisibleby:'5' %}
+                <li>FizzBuzz</li>
+            {% elif i|divisibleby:'5' %}
+                <li>Buzz</li>
+            {% elif i|divisibleby:'3'%}
+                <li>Fizz</li>
+            {% else %}
+                <li>{{i}}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endblock%}

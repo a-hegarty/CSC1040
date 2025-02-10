@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <p>The english beatles</p>
+    <ul>
+        {% for name in names %}
+            <ol> {{name}} </ol>
+        {% endfor %}
+    </ul>
+    <p>the french beatles</p>
+    <ul>
+        <li> Jean Paul georges ringeaux</li>
+    </ul>
+{% endblock %}

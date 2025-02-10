@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<!-- assuming we have been passed a variable called x from views.py -->
+	{% if x == 5 %}
+      <!-- this html will only be shown to the user if x is 5 -->
+	    <p>x is equal to 5</p>
+    {% endif %}
+{% endblock %}
