@@ -1,5 +1,34 @@
 {% extends 'base.html' %}
-{%block content%}
+{% block content %}
     <h1>this is the order page</h1>
-    <p>this should have the most detail, a form to get all the order information from the user</p>
-{%endblock%}
+    <ul>
+        {% for i in sizes %}
+            <li>{{ i.size }}</li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <ul>
+        {% for i in crusts %}
+        <li>{{ i.thickness }} - gluten = {{i.gluten}} </li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <ul>
+        {% for i in sauces %}
+            <li> {{i.sauce}} </li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <ul>
+        {% for i in cheeses %}
+            <li>{{i.cheese}}</li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <ul>
+        {% for i in toppings %}
+            <li>{{i.name}}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'payment' %}">Pay now</a>
+{% endblock %}

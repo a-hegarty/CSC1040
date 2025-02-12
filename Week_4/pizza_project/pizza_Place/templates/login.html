@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
-{%block content%}
-    <h1>this is the login</h1>
-    <p>this should have a login form, username/email, password fields, that sort of thing</p>
-{%endblock%}
+{% block content %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{loginform.as_p}}
+        <button type="submit">Log in to order a Pizza!</button>
+    </form>
+{% endblock %}

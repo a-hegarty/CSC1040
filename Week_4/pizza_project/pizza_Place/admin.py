@@ -3,9 +3,10 @@ from .models import *
 
 # Register your models here.
 
-admin.site.register(Customer)
+#admin.site.register(Customer)
 admin.site.register(Size)
 admin.site.register(Crust)
+admin.site.register(Gluten)
 admin.site.register(Sauce)
 admin.site.register(Cheese)
-admin.site.register(Toppings)
+admin.site.register(Topping)
