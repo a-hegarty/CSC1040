@@ -56,6 +56,13 @@ class Pizza(models.Model):
     toppings = models.ForeignKey(Topping, on_delete=models.CASCADE)
     additional_notes = models.TextField()
 
-class Payment_Details(models.Model)
+class Payment_Details(models.Model):
+    order_id = models.IntegerField()
+    name = models.CharField(max_length=50)
+    address = models.TextField()
+    card_number = models.IntegerField()
+    cvv = models.IntegerFiled()
+    card_expiry = models.DateField()
+
 
 
