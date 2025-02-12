@@ -23,10 +23,9 @@ class Gluten(models.Model):
 
 class Crust(models.Model):
     thickness = models.CharField(max_length=20)
-    gluten = models.ForeignKey(Gluten, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{} - gluten: {}".format(self.thickness, self.gluten)
+        return "{}".format(self.thickness)
 
 class Sauce(models.Model):
     sauce = models.CharField(max_length=20)
@@ -47,13 +46,16 @@ class Topping(models.Model):
         return "{}".format(self.name)
 
 class Pizza(models.Model):
-    order_number = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     customer_id = models.IntegerField()
     size = models.ForeignKey(Size, on_delete=models.CASCADE)
     crust = models.ForeignKey(Crust, on_delete=models.CASCADE)
+    gluten = models.ForeignKey(Gluten, on_delete=models.CASCADE)
     sauce = models.ForeignKey(Sauce, on_delete=models.CASCADE)
     cheese = models.ForeignKey(Cheese, on_delete=models.CASCADE)
     toppings = models.ForeignKey(Topping, on_delete=models.CASCADE)
     additional_notes = models.TextField()
+
+class Payment_Details(models.Model)
 
 

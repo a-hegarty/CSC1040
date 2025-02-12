@@ -15,5 +15,8 @@ class CustomerLogin(AuthenticationForm):
     username = forms.CharField(widget=TextInput())
     password = forms.CharField(widget=PasswordInput())
 
-class OrderPizza(): 
+class OrderPizza(forms.ModelForm): 
+    class Meta:
+        model = Pizza
+        fields = ['size', 'crust', 'gluten', 'sauce', 'cheese', 'toppings', 'additional_notes']
 

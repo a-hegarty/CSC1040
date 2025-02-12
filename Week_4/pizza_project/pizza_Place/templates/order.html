@@ -1,34 +1,9 @@
 {% extends 'base.html' %}
+
 {% block content %}
-    <h1>this is the order page</h1>
-    <ul>
-        {% for i in sizes %}
-            <li>{{ i.size }}</li>
-        {% endfor %}
-    </ul>
-    <hr>
-    <ul>
-        {% for i in crusts %}
-        <li>{{ i.thickness }} - gluten = {{i.gluten}} </li>
-        {% endfor %}
-    </ul>
-    <hr>
-    <ul>
-        {% for i in sauces %}
-            <li> {{i.sauce}} </li>
-        {% endfor %}
-    </ul>
-    <hr>
-    <ul>
-        {% for i in cheeses %}
-            <li>{{i.cheese}}</li>
-        {% endfor %}
-    </ul>
-    <hr>
-    <ul>
-        {% for i in toppings %}
-            <li>{{i.name}}</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'payment' %}">Pay now</a>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{orderpizza.as_p}}
+        <button type="submit">Proceed to payment</button>
+    </form>
 {% endblock %}

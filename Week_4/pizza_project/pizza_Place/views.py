@@ -47,12 +47,13 @@ def logout(request):
     return redirect('home')
 
 def order(request):
-    sizes = Size.objects.all()
-    crusts = Crust.objects.all()
-    sauces = Sauce.objects.all()
-    cheeses = Cheese.objects.all()
-    toppings = Topping.objects.all()
-    context = {'sizes':sizes, 'crusts':crusts, 'sauces':sauces, 'cheeses':cheeses, 'toppings':toppings}
+    form = OrderPizza()
+    if request.method == "POST":
+        form = OrderPizza(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("payment")
+    context = {'orderpizza':form}
     return render(request, 'order.html', context=context)
 
 def payment(request):
