@@ -47,7 +47,7 @@ class Topping(models.Model):
 
 class Pizza(models.Model):
     id = models.AutoField(primary_key=True)
-    customer_id = models.IntegerField()
+    #customer_id = models.IntegerField()
     size = models.ForeignKey(Size, on_delete=models.CASCADE)
     crust = models.ForeignKey(Crust, on_delete=models.CASCADE)
     gluten = models.ForeignKey(Gluten, on_delete=models.CASCADE)
@@ -57,12 +57,12 @@ class Pizza(models.Model):
     additional_notes = models.TextField()
 
 class Payment_Details(models.Model):
-    order_id = models.IntegerField()
+    #order_id = models.IntegerField()
     name = models.CharField(max_length=50)
     address = models.TextField()
     card_number = models.IntegerField()
-    cvv = models.IntegerFiled()
-    card_expiry = models.DateField()
+    cvv = models.IntegerField()
+    card_expiry = models.DateField() # needs a complete date, will revise
 
 
 

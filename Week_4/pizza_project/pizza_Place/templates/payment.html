@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
-{%block content%}
-    <h1>this is the payment page</h1>
-    <p>this should have a form to get payment info, cash or card, visa or mastercard, card details, etc.</p>
-    <p><a href="{% url 'vieworder' %}">View order</a> or <a href="{% url 'userhome' %}">return to homepage</a></p>
-{%endblock%}
+{% block content %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{paymentform.as_p}}
+        <button type="submit">Proceed to payment</button>
+    </form>
+{% endblock %}

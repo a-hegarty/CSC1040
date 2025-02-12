@@ -57,7 +57,14 @@ def order(request):
     return render(request, 'order.html', context=context)
 
 def payment(request):
-    return render(request, 'payment.html')
+    form = PaymentForm()
+    if request.method == "POST":
+        form = PaymentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("vieworder")
+    context = {'paymentform':form}
+    return render(request, 'payment.html', context=context)
 
 def vieworder(request):
     return render(request, 'vieworder.html')

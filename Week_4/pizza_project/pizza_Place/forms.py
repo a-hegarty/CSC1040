@@ -20,3 +20,8 @@ class OrderPizza(forms.ModelForm):
         model = Pizza
         fields = ['size', 'crust', 'gluten', 'sauce', 'cheese', 'toppings', 'additional_notes']
 
+class PaymentForm(forms.ModelForm):
+    class Meta:
+        model = Payment_Details
+        fields = ['name', 'address', 'card_number', 'card_expiry', 'cvv']
+
