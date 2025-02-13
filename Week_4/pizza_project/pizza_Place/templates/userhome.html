@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {%block content%}
-    <h1>this is the users' home page</h1>
+    <h1>this is {{userid.username}}'s home page</h1>
     <h2><a href="{% url 'order' %}">Order here</a></h2>
     <p>this will be a history of all past orders a user has</p>
     <a href="{% url 'logout' %}">Logout</a>

@@ -13,8 +13,9 @@ def index(request):
 def home(request):
     return render(request, 'home.html')
 
-def userhome(request):
-    return render(request, 'userhome.html')
+def userhome(request, userid):
+    user_id = get_object_or_404(User, id=userid)
+    return render(request, 'userhome.html', {'userid':user_id})
 
 def signup(request):
     form = CustomerForm()
@@ -38,7 +39,8 @@ def login(request):
 
             if user is not None:# if a user with the above id info exists at all
                 auth.login(request, user)
-                return redirect('userhome')
+                id = User.objects.filter(username=username).values('id')[0]['id']
+                return redirect('userhome', id)
     context = {'loginform':form}
     return render(request, 'login.html', context=context)
 
@@ -46,7 +48,8 @@ def logout(request):
     auth.logout(request)
     return redirect('home')
 
-def order(request):
+def order(request, userid):
+
     form = OrderPizza()
     if request.method == "POST":
         form = OrderPizza(request.POST)
@@ -67,8 +70,9 @@ def payment(request, order_number):
     context = {'paymentform':form}
     return render(request, 'payment.html', context=context)
 
-def vieworder(request):
-    return render(request, 'vieworder.html')
+def vieworder(request, order_number):
+    ordernum = get_object_or_404(id=order_number)
+    return render(request, 'vieworder.html', {'ordernumber':ordernum})
 
         
     
