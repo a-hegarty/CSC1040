@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate, login, logout
@@ -36,7 +36,7 @@ def login(request):
 
             user = authenticate(request, username=username, password=password)
 
-            if user is not None:
+            if user is not None:# if a user with the above id info exists at all
                 auth.login(request, user)
                 return redirect('userhome')
     context = {'loginform':form}
@@ -56,13 +56,14 @@ def order(request):
     context = {'orderpizza':form}
     return render(request, 'order.html', context=context)
 
-def payment(request):
+def payment(request, order_number):
+    order = get_object_or_404(id=order_number)
     form = PaymentForm()
     if request.method == "POST":
-        form = PaymentForm(request.POST)
+        form = PaymentForm(request.POST, instance=order)
         if form.is_valid():
             form.save()
-            return redirect("vieworder")
+            return redirect("vieworder/")
     context = {'paymentform':form}
     return render(request, 'payment.html', context=context)
 

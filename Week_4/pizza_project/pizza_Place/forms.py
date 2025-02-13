@@ -15,7 +15,9 @@ class CustomerLogin(AuthenticationForm):
     username = forms.CharField(widget=TextInput())
     password = forms.CharField(widget=PasswordInput())
 
+#pizza ordering form
 class OrderPizza(forms.ModelForm): 
+    toppings = forms.ModelMultipleChoiceField(queryset=Topping.objects.all(), widget=forms.CheckboxSelectMultiple)
     class Meta:
         model = Pizza
         fields = ['size', 'crust', 'gluten', 'sauce', 'cheese', 'toppings', 'additional_notes']

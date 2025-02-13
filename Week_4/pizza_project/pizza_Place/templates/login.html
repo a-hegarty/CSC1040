@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form action="" method="POST">
+    <form method="POST">
         {% csrf_token %}
         {{loginform.as_p}}
         <button type="submit">Log in to order a Pizza!</button>

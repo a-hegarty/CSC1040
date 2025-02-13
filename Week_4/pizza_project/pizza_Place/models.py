@@ -1,14 +1,5 @@
 from django.db import models
 
-#customer model
-class Customer(models.Model):
-    id = models.AutoField(primary_key=True)
-    username = models.CharField(max_length=50, default='')
-    email = models.CharField(max_length=20, default='')
-    password1 = models.CharField(max_length=50, default='')
-    password2 = models.CharField(max_length=50, default='')
-    address = models.TextField()
-
 class Size(models.Model):
     size = models.CharField(max_length=20)
 
