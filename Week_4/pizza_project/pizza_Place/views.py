@@ -48,30 +48,35 @@ def logout(request):
     auth.logout(request)
     return redirect('home')
 
-def order(request, userid):
-
+def order(request, userid, ordernum):
+    user_id = get_object_or_404(User, id=userid)
+    ordernumber = get_object_or_404(Pizza, id=ordernum)
     form = OrderPizza()
     if request.method == "POST":
         form = OrderPizza(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("payment")
+            return redirect("payment", user_id, ordernumber)
     context = {'orderpizza':form}
+    context['userid'] = user_id
+    context['ordernum'] = ordernumber
     return render(request, 'order.html', context=context)
 
-def payment(request, order_number):
-    order = get_object_or_404(id=order_number)
+def payment(request, userid, ordernum):
+    user_id = get_object_or_404(User, id=userid)
+    ordernumber = get_object_or_404(Pizza, id=ordernum)
     form = PaymentForm()
     if request.method == "POST":
         form = PaymentForm(request.POST, instance=order)
         if form.is_valid():
             form.save()
-            return redirect("vieworder/")
+            return redirect("vieworder")
     context = {'paymentform':form}
     return render(request, 'payment.html', context=context)
 
-def vieworder(request, order_number):
-    ordernum = get_object_or_404(id=order_number)
+def vieworder(request):
+    user_id = get_object_or_404(User, id=userid)
+    ordernumber = get_object_or_404(Pizza, id=ordernum)
     return render(request, 'vieworder.html', {'ordernumber':ordernum})
 
         

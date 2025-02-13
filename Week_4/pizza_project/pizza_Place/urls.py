@@ -6,9 +6,9 @@ urlpatterns = [
    path('home', views.home, name='home'),
    path('signup', views.signup, name='signup'),
    path('login', views.login, name='login'),
-   path('order', views.order, name='order'),
-   path('payment', views.payment, name='payment'),
+   path('order/<int:userid>/<int:ordernum>', views.order, name='order'),
+   path('payment/<int:userid>/<int:ordernum>', views.payment, name='payment'),
    path('userhome/<int:userid>', views.userhome, name='userhome'),
    path('logout', views.logout, name='logout'),
-   path('vieworder', views.vieworder, name='vieworder')
+   path('vieworder/<int:userid>/<int:ordernum>', views.vieworder, name='vieworder')
 ]
