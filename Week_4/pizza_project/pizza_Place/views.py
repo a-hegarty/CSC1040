@@ -48,9 +48,9 @@ def logout(request):
     auth.logout(request)
     return redirect('home')
 
-def order(request, userid, ordernum):
+def order(request, userid):
     user_id = get_object_or_404(User, id=userid)
-    ordernumber = get_object_or_404(Pizza, id=ordernum)
+    # ordernumber = get_object_or_404(Pizza, Pizza.id)
     form = OrderPizza()
     if request.method == "POST":
         form = OrderPizza(request.POST)
@@ -59,7 +59,7 @@ def order(request, userid, ordernum):
             return redirect("payment", user_id, ordernumber)
     context = {'orderpizza':form}
     context['userid'] = user_id
-    context['ordernum'] = ordernumber
+    # context['ordernum'] = ordernumber
     return render(request, 'order.html', context=context)
 
 def payment(request, userid, ordernum):
@@ -67,17 +67,22 @@ def payment(request, userid, ordernum):
     ordernumber = get_object_or_404(Pizza, id=ordernum)
     form = PaymentForm()
     if request.method == "POST":
-        form = PaymentForm(request.POST, instance=order)
+        form = PaymentForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("vieworder")
+            return redirect("vieworder", user_id, ordernumber)
     context = {'paymentform':form}
+    context['userid'] = user_id
+    context['ordernum'] = ordernumber
     return render(request, 'payment.html', context=context)
 
-def vieworder(request):
+def vieworder(request, userid, ordernum):
     user_id = get_object_or_404(User, id=userid)
     ordernumber = get_object_or_404(Pizza, id=ordernum)
-    return render(request, 'vieworder.html', {'ordernumber':ordernum})
+    pizza_params = Pizza.objects.filter(id=ordernum)
+    context = {'userid':user_id, 'ordernum':ordernumber}
+    context['ordered'] = pizza_params
+    return render(request, 'vieworder.html', context=context)
 
         
     

@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
-{%block content%}
-    <h1>this is the payment page</h1>
-    <p>this should have details of the order, crust cheese sauce, toppings additional notes, payment method</p>
-    <a href="{% url 'userhome' %}">return to homepage</a>
-{%endblock%}
+{% block content %}
+    <h1>this is the order view page</h1>
+<!--<p>this should have details of the order, crust cheese sauce, toppings additional notes, payment method</p-->
+    <ul>
+       <li>{{ordered.size.name}}</li>
+    </ul>
+    
+{% endblock  %}

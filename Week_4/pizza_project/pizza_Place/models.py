@@ -1,35 +1,36 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator
 
 class Size(models.Model):
-    size = models.CharField(max_length=20)
+    name = models.CharField(max_length=20)
 
     def __str__(self):
-        return "{}".format(self.size)
+        return "{}".format(self.name)
 
 class Gluten(models.Model):
-    gluten = models.BooleanField()
+    name = models.BooleanField()
 
     def __str__(self):
-        return "{}".format(self.gluten)
+        return "{}".format(self.name)
 
 class Crust(models.Model):
-    thickness = models.CharField(max_length=20)
+    name = models.CharField(max_length=20)
 
     def __str__(self):
-        return "{}".format(self.thickness)
+        return "{}".format(self.name)
 
 class Sauce(models.Model):
-    sauce = models.CharField(max_length=20)
+    name = models.CharField(max_length=20)
 
     def __str__(self):
-        return "{}".format(self.sauce)
+        return "{}".format(self.name)
 
 class Cheese(models.Model):
-    cheese = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
 
     def __str__(self):
-        return "{}".format(self.cheese)
+        return "{}".format(self.name)
 
 class Topping(models.Model):
     name = models.CharField(max_length=20)
@@ -47,18 +48,26 @@ class Pizza(models.Model):
     cheese = models.ForeignKey(Cheese, on_delete=models.CASCADE)
     toppings = models.ForeignKey(Topping, null=True, on_delete=models.CASCADE)
     additional_notes = models.TextField(default='no other instructions')
+    ordertime = models.DateTimeField()
+    deliverytime = models.DateTimeField(null=True, blank=True, default=None)
 
     def __str__(self):
         return "Order Number {}".format(self.id)
-    
 
+    def save(self, *args, **kwargs):
+        self.deliverytime = self.ordertime + timedelta(minutes=40)
+        return super().save(*args, **kwargs)
+    
 class Payment_Details(models.Model):
     #order_id = models.IntegerField()
     name = models.CharField(max_length=50)
     address = models.TextField()
-    card_number = models.IntegerField()
-    cvv = models.IntegerField()
-    card_expiry = models.DateField() # needs a complete date, will revise
+    card_number = models.IntegerField(validators=[MaxValueValidator(9999999999999999)]) 
+    # 4 groups of 4 digits, the format of bank cards
+    
+    cvv = models.IntegerField(validators=[MaxValueValidator(999)])
+    # limits cvv to 3 digits
+    card_expiry = models.DateField() # you apparantly revise this with bootstrap
 
 
 
