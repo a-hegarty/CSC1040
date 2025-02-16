@@ -1,6 +1,7 @@
-<!DOCTYPE html>
-<html>
-    <body>
-        <h1>hello world</h1>
-    </body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>this is the home page</h1>
+    <hr>
+    <p><a class="pagelinks" href="{% url 'signup' %}">Sign up</a> or <a href="{% url 'login' %}">Login</a> to order a pizza</p>
+{% endblock %}

@@ -1,8 +1,9 @@
 body {
 	margin: 0;
 	background: #ffdbda;
-	font-family: 'Work Sans', sans-serif;
-	font-weight: 800;
+	font-family: "Zain", serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .container {
@@ -11,13 +12,14 @@ body {
 }
 
 header {
-  background: #1b998b;
+    background: #1b998b;
+    font-size: 20px;
 }
 
 header::after {
-  content: '';
-  display: table;
-  clear: both;
+    content: '';
+    display: table;
+    clear: both;
 }
 
 .logo {
@@ -44,21 +46,21 @@ nav li {
 }
 
 nav a {
-  color: #444;
+  color: #04151f;
   text-decoration: none;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 20px;
 }
 
 nav a:hover {
-  color: #000;
+  color: #04151f;
 }
 
 nav a::before {
   content: '';
   display: block;
   height: 5px;
-  background-color: #444;
+  background-color: #04151f;
 
   position: absolute;
   top: 0;
@@ -69,4 +71,47 @@ nav a::before {
 
 nav a:hover::before {
   width: 100%;
+}
+
+.main{
+    justify-content: center;
+    margin: 25px;
+    color: #04151f;
+    font-size: 22px;
+}
+
+hr {
+    color:#1b998b;
+    border: 3px solid;
+    border-radius: 3px;
+}
+
+.button {
+    background-color: #cd2b17;
+    border: none;
+    color: #ffeded;
+    font-size: 30px;
+    padding: 15px 32px;
+    font-size: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.pagelinks {
+    background-color: #cd2b17;
+    border: none;
+    color: #ffeded;
+    font-size: 30px;
+    padding: 15px 32px;
+    font-size: 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
 }

@@ -48,15 +48,15 @@ class Pizza(models.Model):
     cheese = models.ForeignKey(Cheese, on_delete=models.CASCADE)
     toppings = models.ForeignKey(Topping, null=True, on_delete=models.CASCADE)
     additional_notes = models.TextField(default='no other instructions')
-    ordertime = models.DateTimeField()
-    deliverytime = models.DateTimeField(null=True, blank=True, default=None)
+    #ordertime = models.DateTimeField()
+    #deliverytime = models.DateTimeField(null=True, blank=True, default=None)
 
     def __str__(self):
         return "Order Number {}".format(self.id)
 
-    def save(self, *args, **kwargs):
-        self.deliverytime = self.ordertime + timedelta(minutes=40)
-        return super().save(*args, **kwargs)
+   # def save(self, *args, **kwargs):
+    #    self.deliverytime = self.ordertime + timedelta(minutes=40)
+     #   return super().save(*args, **kwargs)
     
 class Payment_Details(models.Model):
     #order_id = models.IntegerField()
@@ -70,4 +70,4 @@ class Payment_Details(models.Model):
     card_expiry = models.DateField() # you apparantly revise this with bootstrap
 
 
-
+

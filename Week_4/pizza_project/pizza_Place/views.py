@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate, login, logout
 from .forms import *
-#from .models import *
+from .models import *
 #from django.shortcuts import get_object_or_404
 
 # Create your views here.

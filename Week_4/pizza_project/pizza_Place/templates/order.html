@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{{userid.username}} is ordering a pizza</h1>
+    <h1>{{userid.username}} is ordering a pizza!</h1>
+    <h2> Make good flavor decisions :)</h2>
     <form action="" method="POST">
         {% csrf_token %}
         {{orderpizza.as_p}}
-        <button type="submit">Proceed to payment</button>
+        <button class="submit">Proceed to payment</button>
     </form>
 {% endblock %}
