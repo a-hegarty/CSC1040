@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>this is the order view page</h1>
-<!--<p>this should have details of the order, crust cheese sauce, toppings additional notes, payment method</p-->
-    {% for item in pizza %}
-    <ul>
-       <li>{{ordered.size.name}}</li>
-    </ul>
+    {% for item in ordered %}
+        <ul>
+            <li>{{ item.size }}</li>
+            <li>{{ item.crust }}</li>
+            <li>{{ item.gluten }}</li>
+            <li>{{ item.sauce }}</li>
+            <li>{{ item.cheese }}</li>
+            <li>{{ item.toppings.all }}</li>
+            <li>{{item.additional_notes}}</li>
+        </ul>
+    {% endfor %}
     
 {% endblock  %}

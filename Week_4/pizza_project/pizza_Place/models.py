@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.validators import MaxValueValidator
+from django.core.validators import MaxValueValidator, RegexValidator
+
+alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$')
 
 class Size(models.Model):
     name = models.CharField(max_length=20)
@@ -33,26 +35,26 @@ class Cheese(models.Model):
         return "{}".format(self.name)
 
 class Topping(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(validators=[alphanumeric], max_length=50, unique=True, blank=False)
 
     def __str__(self):
-        return "{}".format(self.name)
+        return "{}".format(self.name,)
 
 class Pizza(models.Model):
     id = models.AutoField(primary_key=True)
-    customer_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
     size = models.ForeignKey(Size, on_delete=models.CASCADE)
     crust = models.ForeignKey(Crust, on_delete=models.CASCADE)
     gluten = models.ForeignKey(Gluten, on_delete=models.CASCADE)
     sauce = models.ForeignKey(Sauce, on_delete=models.CASCADE)
     cheese = models.ForeignKey(Cheese, on_delete=models.CASCADE)
-    toppings = models.ForeignKey(Topping, null=True, on_delete=models.CASCADE)
+    toppings = models.ManyToManyField(Topping, blank=True)
     additional_notes = models.TextField(default='no other instructions')
     #ordertime = models.DateTimeField()
     #deliverytime = models.DateTimeField(null=True, blank=True, default=None)
 
     def __str__(self):
-        return "Order Number {}".format(self.id)
+        return "{}".format(self.id)
 
    # def save(self, *args, **kwargs):
     #    self.deliverytime = self.ordertime + timedelta(minutes=40)
@@ -70,4 +72,4 @@ class Payment_Details(models.Model):
     card_expiry = models.DateField() # you apparantly revise this with bootstrap
 
 
-
+

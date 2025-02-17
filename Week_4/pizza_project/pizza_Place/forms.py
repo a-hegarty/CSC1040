@@ -17,7 +17,7 @@ class CustomerLogin(AuthenticationForm):
 
 #pizza ordering form
 class OrderPizza(forms.ModelForm): 
-    toppings = forms.ModelChoiceField(queryset=Topping.objects.all(), required=False, widget=forms.CheckboxSelectMultiple)
+    toppings = forms.ModelMultipleChoiceField(queryset=Topping.objects.all(), required=False, widget=forms.CheckboxSelectMultiple)
     class Meta:
         model = Pizza
         fields = ['size', 'crust', 'gluten', 'sauce', 'cheese', 'toppings', 'additional_notes']

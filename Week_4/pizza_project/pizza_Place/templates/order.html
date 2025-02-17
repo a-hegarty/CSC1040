@@ -2,7 +2,9 @@
 
 {% block content %}
     <h1>{{userid.username}} is ordering a pizza!</h1>
-    <h2> Make good flavor decisions :)</h2>
+    <h4>Wood fired Pizza?</h4>
+    <h4>How's pizza going to get a job now?</h4>
+    <hr>
     <form action="" method="POST">
         {% csrf_token %}
         {{orderpizza.as_p}}

@@ -50,13 +50,18 @@ def logout(request):
 
 def order(request, userid):
     user_id = get_object_or_404(User, id=userid)
-    # ordernumber = get_object_or_404(Pizza, Pizza.id)
+    customer = get_object_or_404(User, id=userid)
+    #ordernumber = get_object_or_404(Pizza, id=ordernumber)
     form = OrderPizza()
+    
     if request.method == "POST":
         form = OrderPizza(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect("payment", user_id, ordernumber)
+            pizza = form.save(commit=False)
+            pizza.customer = user_id
+            pizza.save()
+            id = Pizza.objects.filter(customer=customer).values('id')[0]['id']
+            return redirect("payment", userid, id)
     context = {'orderpizza':form}
     context['userid'] = user_id
     # context['ordernum'] = ordernumber
@@ -70,7 +75,7 @@ def payment(request, userid, ordernum):
         form = PaymentForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("vieworder", user_id, ordernumber)
+            return redirect("vieworder", userid, ordernum)
     context = {'paymentform':form}
     context['userid'] = user_id
     context['ordernum'] = ordernumber
@@ -80,8 +85,8 @@ def vieworder(request, userid, ordernum):
     user_id = get_object_or_404(User, id=userid)
     ordernumber = get_object_or_404(Pizza, id=ordernum)
     pizza_params = Pizza.objects.filter(id=ordernum)
-    context = {'userid':user_id, 'ordernum':ordernumber}
-    context['ordered'] = pizza_params
+    context = {'userid':user_id, 'ordernum':ordernumber, 'ordered':pizza_params}
+    #context['ordered'] = pizza_params
     return render(request, 'vieworder.html', context=context)
 
         
