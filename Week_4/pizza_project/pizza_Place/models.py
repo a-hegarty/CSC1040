@@ -14,7 +14,10 @@ class Gluten(models.Model):
     name = models.BooleanField()
 
     def __str__(self):
-        return "{}".format(self.name)
+        if self.name==True:
+            return "Contains Gluten"
+        else:
+            return "Gluten Free"
 
 class Crust(models.Model):
     name = models.CharField(max_length=20)
@@ -35,12 +38,13 @@ class Cheese(models.Model):
         return "{}".format(self.name)
 
 class Topping(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(validators=[alphanumeric], max_length=50, unique=True, blank=False)
 
     def __str__(self):
-        return "{}".format(self.name,)
+        return "{}".format(self.name)
 
-class Pizza(models.Model):
+class OrderedPizza(models.Model):
     id = models.AutoField(primary_key=True)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     size = models.ForeignKey(Size, on_delete=models.CASCADE)

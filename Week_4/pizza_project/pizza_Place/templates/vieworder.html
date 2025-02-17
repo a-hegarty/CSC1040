@@ -1,16 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>this is the order view page</h1>
-    {% for item in ordered %}
-        <ul>
-            <li>{{ item.size }}</li>
-            <li>{{ item.crust }}</li>
-            <li>{{ item.gluten }}</li>
-            <li>{{ item.sauce }}</li>
-            <li>{{ item.cheese }}</li>
-            <li>{{ item.toppings.all }}</li>
-            <li>{{item.additional_notes}}</li>
-        </ul>
-    {% endfor %}
+    {% comment %} {% for item in ordered %} {% endcomment %}
+    <ul>
+        <li>size: {{ ordered.size.name }}</li>
+        <li>crust: {{ ordered.crust }}</li>
+        <li>gluten:{{ ordered.gluten }}</li>
+        <li>sauce:{{ ordered.sauce }}</li>
+        <li>cheese: {{ ordered.cheese }}</li>
+        <li>toppings: 
+            {% for i in toppings %}
+                {{ i.name }}, 
+            {% endfor %}
+        </li>
+        <li>additional notes: {{ordered.additional_notes}}</li>
+    </ul>
+    {% comment %} {% endfor %} {% endcomment %}
     
 {% endblock  %}

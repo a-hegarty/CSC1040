@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>this is {{userid.username}}'s home page</h1>
-    <h2><a href="{% url 'order' userid=userid.id %}">Order here</a></h2>
+    <h2><a href="{% url 'order' userid=userid.id%}">Order here</a></h2>
     <p>this will be a history of all past orders a user has</p>
     <button class="button submit">Logout</button>
 {% endblock %}

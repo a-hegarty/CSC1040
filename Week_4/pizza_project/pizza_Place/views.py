@@ -51,7 +51,7 @@ def logout(request):
 def order(request, userid):
     user_id = get_object_or_404(User, id=userid)
     customer = get_object_or_404(User, id=userid)
-    #ordernumber = get_object_or_404(Pizza, id=ordernumber)
+    ordernumber = get_object_or_404(OrderedPizza, id=ordernumber)
     form = OrderPizza()
     
     if request.method == "POST":
@@ -60,16 +60,29 @@ def order(request, userid):
             pizza = form.save(commit=False)
             pizza.customer = user_id
             pizza.save()
-            id = Pizza.objects.filter(customer=customer).values('id')[0]['id']
+            form.save_m2m()
+            id = OrderedPizza.objects(customer=customer).values('id')[0]['id']
             return redirect("payment", userid, id)
     context = {'orderpizza':form}
     context['userid'] = user_id
-    # context['ordernum'] = ordernumber
+    context['ordernum'] = ordernumber
     return render(request, 'order.html', context=context)
+
+"""def order(request):
+    if request.method == 'POST':
+        form = OrderPizza(request.POST)
+        if form.is_valid():
+            pizza = form.save()
+            return redirect('payment')
+
+    else:
+        form = OrderPizza()
+    
+    return render(request, 'order.html', {'form': form})"""
 
 def payment(request, userid, ordernum):
     user_id = get_object_or_404(User, id=userid)
-    ordernumber = get_object_or_404(Pizza, id=ordernum)
+    ordernumber = get_object_or_404(OrderedPizza, id=ordernum)
     form = PaymentForm()
     if request.method == "POST":
         form = PaymentForm(request.POST)
@@ -83,9 +96,10 @@ def payment(request, userid, ordernum):
 
 def vieworder(request, userid, ordernum):
     user_id = get_object_or_404(User, id=userid)
-    ordernumber = get_object_or_404(Pizza, id=ordernum)
-    pizza_params = Pizza.objects.filter(id=ordernum)
-    context = {'userid':user_id, 'ordernum':ordernumber, 'ordered':pizza_params}
+    ordernumber = get_object_or_404(OrderedPizza, id=ordernum)
+    # print(ordernumber.size.name)
+    # pizza_params = OrderedPizza.objects.filter(id=ordernum)
+    context = {'userid':user_id, 'ordernum':ordernumber, 'ordered':ordernumber, 'toppings': ordernumber.toppings.all()}
     #context['ordered'] = pizza_params
     return render(request, 'vieworder.html', context=context)
 

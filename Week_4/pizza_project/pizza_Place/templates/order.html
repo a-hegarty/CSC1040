@@ -7,7 +7,8 @@
     <hr>
     <form action="" method="POST">
         {% csrf_token %}
-        {{orderpizza.as_p}}
+        {{ orderpizza.as_p }}
+        {% comment %} {{ orderpizza.toppings.as_p }} {% endcomment %}
         <button class="submit">Proceed to payment</button>
     </form>
 {% endblock %}
