@@ -1,8 +1,18 @@
 {% extends 'base.html' %}
-
+{%block head%%}
+<head>
+    <meta name="viewport">
+    <link rel="stylesheet" href="static/style.css">
+</head>
+{% endblock %}
 {% block content %}
     <h1>this is {{userid.username}}'s home page</h1>
     <h2><a href="{% url 'order' userid=userid.id%}">Order here</a></h2>
-    <p>this will be a history of all past orders a user has</p>
-    <button class="button submit">Logout</button>
+    <p>These past orders are a pizza your history</p>
+    <ul>
+        {% for pizza in history%}
+           <li>Order number: {{pizza.id}} |-| Size: {{pizza.size}} |-| Crust: {{pizza.crust}}; {{pizza.gluten}} |-| Cheese: {{pizza.cheese}} |-| Toppings: {% for i in toppings %}{{ i.name }}, {% endfor %} |-| {{pizza.additional_notes}} |-| Ordered at: {{pizza.ordertime}} |-| delivered at: {{pizza.deliverytime}} </li>
+           <hr>
+        {% endfor %}
+    </ul>
 {% endblock %}

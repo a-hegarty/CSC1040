@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
+<head>
+    <meta name="viewport">
+    <link rel="stylesheet" href="static/style.css">
+</head>
+
 {% block content %}
-    <h1>this is the order view page</h1>
-    {% comment %} {% for item in ordered %} {% endcomment %}
+    <h1>Order confirmed!</h1>
+    <h4>The difference between a good pizza pun and a bad one is the delivery</h4>
     <ul>
         <li>size: {{ ordered.size.name }}</li>
         <li>crust: {{ ordered.crust }}</li>
-        <li>gluten:{{ ordered.gluten }}</li>
-        <li>sauce:{{ ordered.sauce }}</li>
+        <li>gluten: {{ ordered.gluten }}</li>
+        <li>sauce: {{ ordered.sauce }}</li>
         <li>cheese: {{ ordered.cheese }}</li>
         <li>toppings: 
             {% for i in toppings %}
@@ -14,7 +19,9 @@
             {% endfor %}
         </li>
         <li>additional notes: {{ordered.additional_notes}}</li>
+        <li>ordered at: {{ordered.ordertime}} </li>
+        <li>delivered at: {{ordered.deliverytime}}</li>
+        <li>Delivered to: {{ordered.address}}</li>
     </ul>
-    {% comment %} {% endfor %} {% endcomment %}
     
 {% endblock  %}

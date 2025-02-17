@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
+<head>
+    <meta name="viewport">
+    <link rel="stylesheet" href="static/style.css">
+</head>
 {% block content %}
+    <h3>Be careful when filling out sensitive inforamtion in public</h3>
+    <h4>That information is knead to know</h4>
     <form action="" method="POST">
         {% csrf_token %}
         {{paymentform.as_p}}

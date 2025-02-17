@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 
+{% block header %}
+	<li><a href="signup">Sign up</a></li>
+	<li><a href="login">Login</a></li>
+{% endblock %}
+
 {% block content %}
     <h1>Welcome to Jokers Pizzaria!</h1>
-    <h4>The difference between a good pizza pun and a bad one is the delivery</h4>
     <hr>
+    <br>
     <p><a class="pagelinks" href="{% url 'signup' %}">Sign up</a> or <a href="{% url 'login' %}">Login</a> to order a pizza</p>
 {% endblock %}

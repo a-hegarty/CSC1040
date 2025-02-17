@@ -1,4 +1,14 @@
 {% extends 'base.html' %}
+<head>
+    <meta name="viewport">
+    <link rel="stylesheet" href="static/style.css">
+</head>
+
+{% block header %}
+	<li><a href="signup">Sign up</a></li>
+	<li><a href="login">Login</a></li>
+{% endblock %}
+
 
 {% block content %}
     <form method="POST">

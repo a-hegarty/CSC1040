@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap');
+body {
+	margin: 0;
+	background: #f0ead6;
+	font-family: 'Zain', serif;
+	font-weight: 800;
+}
+
+.container {
+	width: 80%;
+	margin: 0 auto;
+}
+
+header {
+  background: #FF1E00;
+}
+
+header::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.logo {
+  float: left;
+  padding: 10px 0;
+}
+
+nav {
+  float: right;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: 'Zain', serif;
+}
+
+nav li {
+  display: inline-block;
+  margin-left: 70px;
+  padding-top: 23px;
+
+  position: relative;
+}
+
+nav a {
+  color: #000;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: 'Zain', serif;
+  font-size: 20px;
+}
+
+nav a:hover {
+  color: #f0ead6;
+}
+
+nav a::before {
+  content: '';
+  display: block;
+  height: 5px;
+  background-color: #f0ead6;
+
+  position: absolute;
+  top: 0;
+  width: 0%;
+
+  transition: all ease-in-out 250ms;
+}
+
+nav a:hover::before {
+  width: 100%;
+}
+
+.main{
+    margin: 15px;
+    
+}
+
+.main p {
+    font-size: 22px;
+}
+
+.main hr {
+    color: #59CE8F;
+    border: 10px solid;
+    border-radius: 5px;
+}
+
+.main a {
+    background-color: #FF1E00;
+    padding: 10px;
+    color: #f0ead6;
+    border-radius: 5px;
+}
+
+.main button {
+    font-size: 22px;
+    background-color: #FF1E00;
+    border: none;
+    padding: 10px;
+    color: #f0ead6;
+    border-radius: 10px;
+}
+
+.main input {
+  font-family: 'Zain', serif;
+}

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, RegexValidator
+from django.utils.timezone import now, timedelta
 
 alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$')
 
@@ -54,20 +55,20 @@ class OrderedPizza(models.Model):
     cheese = models.ForeignKey(Cheese, on_delete=models.CASCADE)
     toppings = models.ManyToManyField(Topping, blank=True)
     additional_notes = models.TextField(default='no other instructions')
-    #ordertime = models.DateTimeField()
-    #deliverytime = models.DateTimeField(null=True, blank=True, default=None)
+    address = models.TextField()
+    ordertime = models.DateTimeField(default=now)
+    deliverytime = models.DateTimeField(null=True, blank=True, default=None)
 
     def __str__(self):
         return "{}".format(self.id)
 
-   # def save(self, *args, **kwargs):
-    #    self.deliverytime = self.ordertime + timedelta(minutes=40)
-     #   return super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        self.deliverytime = self.ordertime + timedelta(minutes=40)
+        return super().save(*args, **kwargs)
     
 class Payment_Details(models.Model):
-    #order_id = models.IntegerField()
+    order_id = models.IntegerField()
     name = models.CharField(max_length=50)
-    address = models.TextField()
     card_number = models.IntegerField(validators=[MaxValueValidator(9999999999999999)]) 
     # 4 groups of 4 digits, the format of bank cards
     

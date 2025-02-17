@@ -1,31 +1,24 @@
 <html>
+	{% block head %}
 	<head>
 		<meta name="viewport">
 		<link rel="stylesheet" href="static/style.css">
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
 	</head>
+	{% endblock %}
     <header>
 		<div class="container">
 		  <h1 class="logo"></h1>
 		  <nav>
 			<ul>
-			  <li><a href="#">Home</a></li>
-			  <li><a href="#">Contact</a></li>
-			  <li><a href="signup">Sign up</a></li>
-			  <li><a href="login">Login</a></li>
+			{% block header %}
+				<li><a href="{% url 'userhome' userid=userid.id%}">Home</a></li>
+				<li><a href="{% url 'order' userid=userid.id%}">Order</a></li>
+				<li><a href="logout">Logout</a></li>
+  			{% endblock %}
 			</ul>
 		  </nav>
 		</div>
 	  </header>
-	<head>
-		<div>
-			{% block title %}
-				<!-- Default title if non is supplied by another template -->
-			{% endblock %}
-		</div>
-	</head>
 	<body>
 		<div class='main'>
 			{% block content %}

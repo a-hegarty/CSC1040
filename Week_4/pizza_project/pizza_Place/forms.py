@@ -25,5 +25,5 @@ class OrderPizza(forms.ModelForm):
 class PaymentForm(forms.ModelForm):
     class Meta:
         model = Payment_Details
-        fields = ['name', 'address', 'card_number', 'card_expiry', 'cvv']
+        fields = ['name', 'card_number', 'card_expiry', 'cvv']
 

@@ -4,7 +4,6 @@ from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate, login, logout
 from .forms import *
 from .models import *
-#from django.shortcuts import get_object_or_404
 
 # Create your views here.
 def index(request):
@@ -15,7 +14,12 @@ def home(request):
 
 def userhome(request, userid):
     user_id = get_object_or_404(User, id=userid)
-    return render(request, 'userhome.html', {'userid':user_id})
+    customer = OrderedPizza.objects.all()
+    past_orders = OrderedPizza.objects.filter(customer=userid)
+    context = { 'userid':user_id,
+                'history':past_orders,
+                'toppings': customer}
+    return render(request, 'userhome.html', context=context)
 
 def signup(request):
     form = CustomerForm()
@@ -46,12 +50,13 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect('home')
+    return redirect(request, '')
 
 def order(request, userid):
     user_id = get_object_or_404(User, id=userid)
     customer = get_object_or_404(User, id=userid)
-    ordernumber = get_object_or_404(OrderedPizza, id=ordernumber)
+    #ordernumber = get_object_or_404(OrderedPizza, id=)
+    
     form = OrderPizza()
     
     if request.method == "POST":
@@ -61,11 +66,13 @@ def order(request, userid):
             pizza.customer = user_id
             pizza.save()
             form.save_m2m()
-            id = OrderedPizza.objects(customer=customer).values('id')[0]['id']
+            id = OrderedPizza.objects.filter(customer_id=customer).values('id').last()['id']
+            #^^this line is passing the first ordernumber of a given customer instead of the most recent one
+            #needa fix that
             return redirect("payment", userid, id)
     context = {'orderpizza':form}
     context['userid'] = user_id
-    context['ordernum'] = ordernumber
+    #context['ordernum'] = ordernumber
     return render(request, 'order.html', context=context)
 
 """def order(request):
@@ -87,7 +94,9 @@ def payment(request, userid, ordernum):
     if request.method == "POST":
         form = PaymentForm(request.POST)
         if form.is_valid():
-            form.save()
+            payment = form.save(commit=False)
+            payment.order_id = ordernum
+            payment.save()
             return redirect("vieworder", userid, ordernum)
     context = {'paymentform':form}
     context['userid'] = user_id
@@ -99,7 +108,10 @@ def vieworder(request, userid, ordernum):
     ordernumber = get_object_or_404(OrderedPizza, id=ordernum)
     # print(ordernumber.size.name)
     # pizza_params = OrderedPizza.objects.filter(id=ordernum)
-    context = {'userid':user_id, 'ordernum':ordernumber, 'ordered':ordernumber, 'toppings': ordernumber.toppings.all()}
+    context = { 'userid':user_id, 
+                'ordernum':ordernumber, 
+                'ordered':ordernumber, 
+                'toppings': ordernumber.toppings.all()}
     #context['ordered'] = pizza_params
     return render(request, 'vieworder.html', context=context)
 
