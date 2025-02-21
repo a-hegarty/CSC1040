@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{%block head%%}
+{%block head %}
 <head>
     <meta name="viewport">
     <link rel="stylesheet" href="static/style.css">
@@ -11,7 +11,7 @@
     <p>These past orders are a pizza your history</p>
     <ul>
         {% for pizza in history%}
-           <li>Order number: {{pizza.id}} |-| Size: {{pizza.size}} |-| Crust: {{pizza.crust}}; {{pizza.gluten}} |-| Cheese: {{pizza.cheese}} |-| Toppings: {% for i in toppings %}{{ i.name }}, {% endfor %} |-| {{pizza.additional_notes}} |-| Ordered at: {{pizza.ordertime}} |-| delivered at: {{pizza.deliverytime}} </li>
+           <li>Order number: {{pizza.id}} |-| Size: {{pizza.size}} |-| Crust: {{pizza.crust}}; {{pizza.gluten}} |-| Cheese: {{pizza.cheese}} |-| Toppings: {{toppings.name}} |-| {{pizza.additional_notes}} |-| Ordered at: {{pizza.ordertime}} |-| delivered at: {{pizza.deliverytime}} </li>
            <hr>
         {% endfor %}
     </ul>

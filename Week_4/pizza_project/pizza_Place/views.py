@@ -9,16 +9,14 @@ from .models import *
 def index(request):
     return render(request, 'index.html')
 
-def home(request):
-    return render(request, 'home.html')
-
 def userhome(request, userid):
     user_id = get_object_or_404(User, id=userid)
-    customer = OrderedPizza.objects.all()
+    customer = OrderedPizza.objects.filter(customer=userid)
     past_orders = OrderedPizza.objects.filter(customer=userid)
+    toppings = OrderedPizza.objects.filter(customer_id=userid)
     context = { 'userid':user_id,
                 'history':past_orders,
-                'toppings': customer}
+                'toppings': toppings}
     return render(request, 'userhome.html', context=context)
 
 def signup(request):
@@ -50,12 +48,11 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect(request, '')
+    return redirect(request, 'logout.html')
 
 def order(request, userid):
     user_id = get_object_or_404(User, id=userid)
     customer = get_object_or_404(User, id=userid)
-    #ordernumber = get_object_or_404(OrderedPizza, id=)
     
     form = OrderPizza()
     
@@ -67,25 +64,10 @@ def order(request, userid):
             pizza.save()
             form.save_m2m()
             id = OrderedPizza.objects.filter(customer_id=customer).values('id').last()['id']
-            #^^this line is passing the first ordernumber of a given customer instead of the most recent one
-            #needa fix that
             return redirect("payment", userid, id)
     context = {'orderpizza':form}
     context['userid'] = user_id
-    #context['ordernum'] = ordernumber
     return render(request, 'order.html', context=context)
-
-"""def order(request):
-    if request.method == 'POST':
-        form = OrderPizza(request.POST)
-        if form.is_valid():
-            pizza = form.save()
-            return redirect('payment')
-
-    else:
-        form = OrderPizza()
-    
-    return render(request, 'order.html', {'form': form})"""
 
 def payment(request, userid, ordernum):
     user_id = get_object_or_404(User, id=userid)
@@ -106,13 +88,10 @@ def payment(request, userid, ordernum):
 def vieworder(request, userid, ordernum):
     user_id = get_object_or_404(User, id=userid)
     ordernumber = get_object_or_404(OrderedPizza, id=ordernum)
-    # print(ordernumber.size.name)
-    # pizza_params = OrderedPizza.objects.filter(id=ordernum)
     context = { 'userid':user_id, 
                 'ordernum':ordernumber, 
                 'ordered':ordernumber, 
                 'toppings': ordernumber.toppings.all()}
-    #context['ordered'] = pizza_params
     return render(request, 'vieworder.html', context=context)
 
         

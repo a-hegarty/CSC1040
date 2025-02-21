@@ -74,7 +74,7 @@ class Payment_Details(models.Model):
     
     cvv = models.IntegerField(validators=[MaxValueValidator(999)])
     # limits cvv to 3 digits
-    card_expiry = models.DateField() # you apparantly revise this with bootstrap
+    card_expiry = models.DateField() 
 
 
 

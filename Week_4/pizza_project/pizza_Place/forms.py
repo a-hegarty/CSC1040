@@ -20,7 +20,7 @@ class OrderPizza(forms.ModelForm):
     toppings = forms.ModelMultipleChoiceField(queryset=Topping.objects.all(), required=False, widget=forms.CheckboxSelectMultiple)
     class Meta:
         model = OrderedPizza
-        fields = ['size', 'crust', 'gluten', 'sauce', 'cheese', 'toppings', 'additional_notes']
+        fields = ['size', 'crust', 'gluten', 'sauce', 'cheese', 'toppings', 'additional_notes', 'address']
     
 class PaymentForm(forms.ModelForm):
     class Meta:
